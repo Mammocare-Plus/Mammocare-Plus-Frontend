@@ -1,0 +1,13 @@
+.gradCircle {
+  width: 550px;
+  height: 550px;
+  flex-shrink: 0;
+  border-radius: 550px;
+  background: linear-gradient(
+    180deg,
+    rgb(218, 158, 158) 0%,
+    rgb(230, 171, 159) 100%
+  );
+  position: absolute;
+  filter: blur(100px);
+}

@@ -1,0 +1,557 @@
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
+}
+
+@layer components {
+  .navContainer {
+    background: #fff;
+    box-shadow: 0px 3.57397px 40.20715px 0px rgba(0, 0, 0, 0.08);
+    transition: 0.5s;
+  }
+
+  .navContainerDark {
+    background: #1e252b;
+    box-shadow: 0px 3.57397px 40.20715px 0px rgba(0, 0, 0, 0.08);
+  }
+
+  .logoText {
+    color: #080808;
+    font-family: Epilogue;
+    font-size: 24.062px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 25.108px;
+    letter-spacing: 0.12px;
+  }
+
+  .logoTextDark {
+    color: #e9f5fe;
+    font-family: Epilogue;
+    font-size: 24.062px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 25.108px;
+    letter-spacing: 0.12px;
+  }
+
+  .navItem svg {
+    font-size: 2rem;
+  }
+
+  .navItem {
+    color: #080808;
+    font-family: Poppins;
+    font-size: 16.738px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25.108px;
+    letter-spacing: 0.167px;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    border-radius: 4px;
+    cursor: pointer;
+
+    margin-bottom: 0.5rem;
+  }
+
+  .navItem:hover {
+    background: #e9f5fe;
+    color: #0c7fda;
+    font-weight: 600;
+  }
+
+  .navItemDark svg {
+    font-size: 2rem;
+  }
+
+  .navItemDark {
+    color: #e9f5fe;
+    font-family: Poppins;
+    font-size: 16.738px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25.108px;
+    letter-spacing: 0.167px;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    border-radius: 4px;
+    cursor: pointer;
+
+    margin-bottom: 0.5rem;
+  }
+
+  .navItemDark:hover {
+    background: #e9f5fe;
+    color: #0c7fda;
+    font-weight: 600;
+  }
+
+  .navItemActive svg {
+    font-size: 2rem;
+  }
+
+  .navItemActive {
+    background: #e9f5fe;
+    color: #0c7fda;
+    font-weight: 600;
+
+    font-family: Poppins;
+    font-size: 16.738px;
+    font-style: normal;
+    line-height: 25.108px;
+    letter-spacing: 0.167px;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    border-radius: 4px;
+    cursor: pointer;
+
+    margin-bottom: 0.5rem;
+  }
+
+  .darkModeContainer svg {
+    font-size: 2rem;
+  }
+
+  .darkModeContainer {
+    color: #080808;
+    font-family: Poppins;
+    font-size: 16.738px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25.108px;
+    letter-spacing: 0.167px;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    border-radius: 4px;
+    cursor: pointer;
+
+    margin-bottom: 0.5rem;
+  }
+
+  .darkModeContainerDark svg {
+    font-size: 2rem;
+  }
+
+  .darkModeContainerDark {
+    color: #e9f5fe;
+    font-family: Poppins;
+    font-size: 16.738px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25.108px;
+    letter-spacing: 0.167px;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    border-radius: 4px;
+    cursor: pointer;
+
+    margin-bottom: 0.5rem;
+  }
+
+  .logoutContainer svg {
+    font-size: 2rem;
+  }
+
+  .logoutContainer {
+    color: #ffffff;
+    background: #080808;
+    font-family: Poppins;
+    font-size: 16.738px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25.108px;
+    letter-spacing: 0.167px;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    border-radius: 4px;
+    cursor: pointer;
+
+    margin-bottom: 0.5rem;
+    padding: 4px;
+  }
+
+  .logoutContainer:hover {
+    background: #e9f5fe;
+    color: #0c7fda;
+    font-weight: 600;
+  }
+
+  .logoutContainerDark svg {
+    font-size: 2rem;
+  }
+
+  .logoutContainerDark {
+    color: #080808;
+    background: #ffffff;
+    font-family: Poppins;
+    font-size: 16.738px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25.108px;
+    letter-spacing: 0.167px;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    border-radius: 4px;
+    cursor: pointer;
+
+    margin-bottom: 0.5rem;
+    padding: 4px;
+  }
+
+  .logoutContainerDark:hover {
+    background: #e9f5fe;
+    color: #0c7fda;
+    font-weight: 600;
+  }
+
+  .headerContainer {
+    background: #fff;
+  }
+
+  .headerContainerDark {
+    background: #1e252b;
+  }
+
+  .mainContainer {
+    background-color: #fafafa;
+  }
+
+  .mainContainerDark {
+    background-color: #080808;
+  }
+
+  .headerText {
+    color: #000;
+    font-family: Epilogue;
+    /* font-size: 65px; */
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -1.3px;
+  }
+
+  .headerTextDark {
+    color: #e9f5fe;
+    font-family: Epilogue;
+    /* font-size: 65px; */
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -1.3px;
+  }
+
+  .headerTextSmallDark {
+    color: #e9f5fe;
+    font-family: Epilogue;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -1.3px;
+  }
+
+  .primaryText {
+    color: #000;
+    font-family: Epilogue;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -1.3px;
+  }
+
+  .primaryTextDark {
+    color: #e9f5fe;
+    font-family: Epilogue;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -1.3px;
+  }
+
+  .rainbowText {
+    position: relative;
+    color: transparent;
+    background-image: linear-gradient(90deg, #2196f3, #ad20af);
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: wavy 8s linear infinite alternate;
+    white-space: nowrap;
+  }
+
+  @keyframes wavy {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  .primaryButton {
+    color: #fff;
+    font-family: Epilogue;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.7px;
+
+    border-radius: 20px;
+    background: #080808;
+  }
+
+  .primaryButton:hover {
+    color: #080808;
+    font-family: Epilogue;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.7px;
+
+    border-radius: 20px;
+    background: #fff;
+    border: 2px solid black;
+  }
+
+  .primaryButtonDark {
+    color: #080808;
+    font-family: Epilogue;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.7px;
+
+    border-radius: 20px;
+    background: #fff;
+  }
+
+  .primaryButtonDark:hover {
+    color: #fff;
+    font-family: Epilogue;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.7px;
+
+    border-radius: 20px;
+    background: #080808;
+    border: 2px solid white;
+  }
+
+  .gradCircle {
+    width: 550px;
+    height: 550px;
+    flex-shrink: 0;
+    border-radius: 550px;
+    background: linear-gradient(
+      180deg,
+      rgba(12, 76, 218, 0.4) 0%,
+      rgba(123, 97, 255, 0.4) 100%
+    );
+    position: absolute;
+    filter: blur(100px);
+  }
+
+  /* Register user */
+  .inputLight {
+    display: flex;
+    flex-direction: column;
+    width: 25rem;
+
+    color: #000;
+    font-family: Epilogue;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.72px;
+
+    margin-bottom: 1rem;
+  }
+
+  .inputLight input {
+    width: 100%;
+
+    padding: 0.5rem 1rem;
+
+    outline: none;
+    border-radius: 10px;
+    border: 2px solid #2196f3;
+    background: transparent;
+  }
+  .inputLight label {
+    margin-bottom: 0.5rem;
+  }
+
+  .inputDark {
+    display: flex;
+    flex-direction: column;
+    width: 25rem;
+
+    color: #fff;
+    font-family: Epilogue;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.72px;
+
+    margin-bottom: 1rem;
+  }
+
+  .inputDark input {
+    width: 100%;
+
+    padding: 0.5rem 1rem;
+
+    outline: none;
+    border-radius: 10px;
+    border: 2px solid #2196f3;
+    background: transparent;
+  }
+
+  .inputDark label {
+    margin-bottom: 0.5rem;
+  }
+
+  /* inference */
+  .secondaryContainer {
+    background-color: #fafafa;
+    box-shadow: 20px 20px 34px gray;
+  }
+  .secondaryContainerDark {
+    background-color: #080808;
+    box-shadow: 20px 20px 34px #0c4cda;
+  }
+
+  .descriptionText {
+    color: #000;
+    font-family: Epilogue;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -1.3px;
+
+    /* color: #E9F5FE;
+    font-family: Epilogue;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 35px; /* 116.667% */
+    /* letter-spacing: -0.6px;  */
+  }
+
+  .descriptionTextDark {
+    color: #e9f5fe;
+    font-family: Epilogue;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -1.3px;
+  }
+
+  /* doctors */
+  .rainbowContainer {
+    border-radius: 20px;
+    background: linear-gradient(
+      115deg,
+      rgba(33, 150, 243, 0.6) 34.31%,
+      rgba(123, 97, 255, 0.6) 71.24%
+    );
+  }
+
+  .plainContainer {
+    background-color: #d9d9d9;
+  }
+
+  .plainContainerDark {
+    background-color: #5a5a5a;
+  }
+
+  .bareButton {
+    color: #fff;
+    font-family: Epilogue;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.7px;
+
+    border-radius: 20px;
+    background: #080808;
+  }
+
+  .bareButton:hover {
+    color: #080808;
+    font-family: Epilogue;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.7px;
+
+    border-radius: 20px;
+    background: #fff;
+    border: 2px solid black;
+  }
+
+  .bareButtonDark {
+    color: #080808;
+    font-family: Epilogue;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.7px;
+
+    border-radius: 20px;
+    background: #fff;
+  }
+
+  .bareButtonDark:hover {
+    color: #fff;
+    font-family: Epilogue;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.7px;
+
+    border-radius: 20px;
+    background: #080808;
+    border: 2px solid white;
+  }
+}
