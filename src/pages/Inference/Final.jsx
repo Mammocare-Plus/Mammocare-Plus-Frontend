@@ -88,41 +88,41 @@ const Inference = () => {
       console.log("response FAST", response);
       console.log("data FAST", data);
 
-      // const id = 1;
-      // if (response.status === 200) {
-      //   setPredictData(data);
+      const id = 1;
+      if (response.status === 200) {
+        setPredictData(data);
 
-      //   const s3Data = await handleS3Upload();
+        const s3Data = await handleS3Upload();
 
-      //   try {
-      //     toast.success("Inference successful");
-      //     const drfFormData = new FormData();
-      //     drfFormData.append("prediction", data.prediction);
-      //     drfFormData.append("uploadedImage", s3Data.Location);
-      //     drfFormData.append("model", data.model_name);
+        try {
+          toast.success("Inference successful");
+          const drfFormData = new FormData();
+          drfFormData.append("prediction", data.prediction);
+          drfFormData.append("uploadedImage", s3Data.Location);
+          drfFormData.append("model", data.model_name);
 
-      //     const drfUrl = endpoints.recordAfterInference;
+          const drfUrl = endpoints.recordAfterInference;
 
-      //     setLoading(true);
-      //     const responseDrf = await fetch(drfUrl, {
-      //       method: "POST",
-      //       headers: {
-      //         Authorization: `Bearer ${localStorage.getItem(`accessToken`)}`,
-      //       },
-      //       body: drfFormData,
-      //     });
-      //     setLoading(false);
+          setLoading(true);
+          const responseDrf = await fetch(drfUrl, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem(`accessToken`)}`,
+            },
+            body: drfFormData,
+          });
+          setLoading(false);
 
-      //     const dataDrf = await responseDrf.json();
-      //     console.log("response DRF", responseDrf);
-      //     console.log("data DRF", dataDrf);
-      //     // call record api
-      //     // navigate(`/inference/diagnosis/${id}`);
-      //   } catch (error) {
-      //     setLoading(false);
-      //     console.log(error);
-      //   }
-      // }
+          const dataDrf = await responseDrf.json();
+          console.log("response DRF", responseDrf);
+          console.log("data DRF", dataDrf);
+          // call record api
+          // navigate(`/inference/diagnosis/${id}`);
+        } catch (error) {
+          setLoading(false);
+          console.log(error);
+        }
+      }
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -170,11 +170,11 @@ const Inference = () => {
                 />
               </div>
               <div className="mt-[1rem] z-10 flex flex-col">
-                {predictData && (
+                {/* {predictData && (
                   <div className="primaryText dark:primaryTextDark mb-[1rem]">
                     Prediction: {predictData.prediction}
                   </div>
-                )}
+                )} */}
                 <label className="primaryText dark:primaryTextDark">
                   Select Localisation:
                 </label>

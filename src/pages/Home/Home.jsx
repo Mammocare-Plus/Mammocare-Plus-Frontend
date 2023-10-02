@@ -10,7 +10,7 @@ const Home = () => {
     <>
       <div className="flex flex-col h-[100%] w-[100%] mainContainer dark:mainContainerDark justify-center items-center relative overflow-hidden">
         <div className="headerText dark:headerTextDark text-center">
-          Care For Your Skin Using <br /> The Power Of <br />
+          Mammocare AI Plus <br /> Powered by <br />
           <span className="rainbowText">Artificial Intelligence</span>
         </div>
         <div>

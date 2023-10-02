@@ -5,8 +5,8 @@
   border-radius: 550px;
   background: linear-gradient(
     180deg,
-    rgb(218, 158, 158) 0%,
-    rgb(230, 171, 159) 100%
+    rgba(12, 76, 218, 0.4) 0%,
+    rgba(123, 97, 255, 0.4) 100%
   );
   position: absolute;
   filter: blur(100px);

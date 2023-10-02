@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import { baseURL } from "../../utils/config";
 import jwtDecode from "jwt-decode";
+import { endpoints } from "../../utils/config";
 import GradientCircle from "../../components/GradientCircle/GradientCircle";
 
 const Login = () => {
@@ -17,7 +18,7 @@ const Login = () => {
     password: "",
   };
 
-  const [{ username, password }, setState] = useState(initialState);
+  const [loginState, setState] = useState(initialState);
 
   const clearState = () => {
     setState({ ...initialState });
@@ -31,32 +32,43 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const url = `${baseURL}/login`;
+    try {
+      const url = endpoints.login;
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    });
+      setLoading(true);
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...loginState,
+        }),
+      });
+      setLoading(false);
 
-    console.log(response);
-    const data = await response.json();
-    if (response.status === 205 || response.status === 204 || data.isSuccess) {
-      var decoded = jwtDecode(data.access);
-      const userId = decoded.user_id;
-      localStorage.setItem("refreshToken", data.refresh);
-      localStorage.setItem("accessToken", data.access);
-      localStorage.setItem("userId", userId);
+      const data = await response.json();
+      console.log("response", response);
+      console.log("data", data);
+      if (response.status === 200) {
+        toast.success("Login Successful");
+        console.log(data.tokens);
+        localStorage.setItem("refreshToken", data.tokens.refresh);
+        localStorage.setItem("accessToken", data.tokens.access);
+        navigate(`/inference`);
+        // call check doctor api, set local storage
+        // if doctor nav to doctor profile
+        // if patient nav to patient profile (for now inference)
+      } else {
+        toast.error("Login failed");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   if (loading) {
-    return <Loader loading={loading} />;
+    return <Loader />;
   }
 
   return (
@@ -73,7 +85,7 @@ const Login = () => {
               <input
                 type="text"
                 name="username"
-                value={username}
+                value={loginState.username}
                 onChange={handleChange}
                 placeholder="Enter your username"
               />
@@ -81,9 +93,9 @@ const Login = () => {
             <div className="inputLight dark:inputDark">
               <label>Password</label>
               <input
-                type="text"
+                type="password"
                 name="password"
-                value={password}
+                value={loginState.password}
                 onChange={handleChange}
                 placeholder="Enter your password"
               />

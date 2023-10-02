@@ -2,18 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { applyTheme } from "../../utils/applyTheme";
 import { NavLink } from "react-router-dom";
-import dermaLogo from "../../assets/logo.svg";
+import mammoLogo from "../../assets/logo.svg";
 import HomeIcon from "@mui/icons-material/Home";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import DescriptionIcon from "@mui/icons-material/Description";
-import GroupsIcon from "@mui/icons-material/Groups";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { ToggleSwitch } from "flowbite-react";
-
-import { Avatar } from "flowbite-react";
-import defaultPfp from "../../assets/defaultPfp.jpg";
-import TextsmsIcon from "@mui/icons-material/Textsms";
 
 const MainLayout = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -68,12 +63,12 @@ const MainLayout = () => {
                 <div>
                   <div className="flex items-center gap-4">
                     <img
-                      src={dermaLogo}
+                      src={mammoLogo}
                       alt="logo"
                       className="bg-[#2196F3] w-[40px] h-[40px] p-[4px]"
                     />
                     <div className="logoText dark:logoTextDark">
-                      dermacare.ai
+                      Mammocare+
                     </div>
                   </div>
 
@@ -98,7 +93,7 @@ const MainLayout = () => {
                     }
                   >
                     <NoteAltIcon />
-                    <div>DermacareAI</div>
+                    <div>Inference</div>
                   </NavLink>
                   <NavLink
                     to={`/records`}
@@ -110,17 +105,6 @@ const MainLayout = () => {
                   >
                     <DescriptionIcon />
                     <div>Records</div>
-                  </NavLink>
-                  <NavLink
-                    to={`/doctors`}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "navItemActive ml-[0.5rem] p-[2px]"
-                        : "navItem dark:navItemDark ml-[0.5rem] p-[2px]"
-                    }
-                  >
-                    <GroupsIcon />
-                    <div>Doctors</div>
                   </NavLink>
                 </div>
 
@@ -145,7 +129,7 @@ const MainLayout = () => {
                 <div>
                   <div>
                     <img
-                      src={dermaLogo}
+                      src={mammoLogo}
                       alt="logo"
                       className="bg-[#2196F3] w-[40px] h-[40px] p-[4px]"
                     />
@@ -182,16 +166,6 @@ const MainLayout = () => {
                   >
                     <DescriptionIcon />
                   </NavLink>
-                  <NavLink
-                    to={`/doctors`}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "navItemActive w-fit p-[2px]"
-                        : "navItem dark:navItemDark p-[2px]"
-                    }
-                  >
-                    <GroupsIcon />
-                  </NavLink>
                 </div>
 
                 {/* Nav Footer */}
@@ -213,24 +187,8 @@ const MainLayout = () => {
 
         {/* Right Container */}
         <div className="flex-1 flex flex-col">
-          {/* Header */}
-          <div className="h-[4rem] flex">
-            <div className="fixed h-[4rem] w-[100%] pr-[80px] headerContainer dark:headerContainerDark py-[1rem] flex justify-end gap-[1rem] items-center z-30">
-              <TextsmsIcon
-                className="text-[#5FB3F6] cursor-pointer"
-                style={{ fontSize: "2rem" }}
-              />
-              <Avatar
-                img={defaultPfp}
-                alt="default pfp"
-                rounded
-                className="cursor-pointer pr-[2rem]"
-              />
-            </div>
-          </div>
-
           {/* Main */}
-          <div className="flex-1">
+          <div className="flex-1 mainContainer dark:mainContainerDark">
             <Outlet />
           </div>
         </div>

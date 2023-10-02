@@ -8,11 +8,9 @@ import GradientCircle from "../../components/GradientCircle/GradientCircle";
 import diseaseData from "../../utils/diseaseData";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
-// import sampleImg from "../../assets/sampleDisease.jpg";
-import sampleImg from "../../assets/sampleDisease2.jpg";
-import { endpoints } from "../../utils/config";
+import sampleImg from "../../assets/sampleDisease.jpg";
 
-const InferenceDiagnosis = () => {
+const SpeechTest = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -23,7 +21,7 @@ const InferenceDiagnosis = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en-US");
 
   const getData = async (query) => {
-    let url = endpoints.recordAfterInference;
+    let url = `${baseURL}/records/${id}`;
     if (query) {
       url = query;
     }
@@ -75,7 +73,7 @@ const InferenceDiagnosis = () => {
 
     let voice = null;
     if (selectedLanguage == "hi-IN") {
-      voice = voices[9.5];
+      voice = voices[12];
     }
     utterance.voice = voice;
 
@@ -182,7 +180,7 @@ const InferenceDiagnosis = () => {
           {/* <div className="bg-slate-600 w-[200px] h-[200px] rounded-full mb-[1rem]"></div> */}
 
           <div className="descriptionText dark:descriptionTextDark text-[25px] text-center mb-[1rem]">
-            Dr. Vijay Desai
+            Dr. Vijay Tannu
           </div>
 
           <div className="descriptionText dark:descriptionTextDark text-center text-[20px] mb-[1rem]">
@@ -256,4 +254,4 @@ const DisplayInfo = (props) => {
   );
 };
 
-export default InferenceDiagnosis;
+export default SpeechTest;

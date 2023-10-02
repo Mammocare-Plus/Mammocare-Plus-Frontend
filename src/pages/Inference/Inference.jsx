@@ -2,8 +2,37 @@ import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader/Loader";
 import { useNavigate } from "react-router-dom";
-import { baseURL } from "../../utils/config.js";
+import { baseURL, endpoints } from "../../utils/config.js";
+import { fastURL } from "../../utils/config.js";
 import GradientCircle from "../../components/GradientCircle/GradientCircle";
+
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import "../../utils/init";
+import AWS from "aws-sdk";
+
+const S3_BUCKET_NAME = "musversebucket";
+const REGION = "eu-north-1";
+
+let accessKey, secretKey;
+
+if (import.meta.env.DEV) {
+  // Development environment
+  accessKey = import.meta.env.AWS_ACCESS_KEY_ID;
+  secretKey = import.meta.env.AWS_SECRET_ACCESS_KEY;
+} else {
+  // Production or deployment environment
+  accessKey = process.env.AWS_ACCESS_KEY_ID;
+  secretKey = process.env.AWS_SECRET_ACCESS_KEY;
+}
+
+AWS.config.update({
+  accessKeyId: accessKey,
+  secretAccessKey: secretKey,
+  region: REGION,
+});
+
+const s3 = new AWS.S3();
 
 const Inference = () => {
   const navigate = useNavigate();
@@ -13,6 +42,9 @@ const Inference = () => {
   const [uploaded, setUploaded] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedBodyPart, setSelectedBodyPart] = useState("");
+  const [predictData, setPredictData] = useState();
+
+  const [imageUrl, setImageUrl] = useState("");
 
   const handleContainerClick = () => {
     fileInputRef.current.click();
@@ -20,29 +52,96 @@ const Inference = () => {
 
   const handleFileSelect = (e) => {
     console.log(e.target.files[0]);
+    ``;
     setSelectedFile(e.target.files[0]);
     setUploaded(true);
     // clears the selected file(s) so that selecting the same files again still triggers the onChange
     // e.target.value = "";
   };
 
-  const handleUpload = async () => {
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-    formData.append("bodyPart", selectedBodyPart);
+  const handleS3Upload = async () => {
+    if (!selectedFile) return;
+    const params = {
+      Bucket: S3_BUCKET_NAME,
+      Key: selectedFile.name,
+      Body: selectedFile,
+      ACL: "public-read", // Make the uploaded file publicly accessible
+    };
 
-    const url = `${baseURL}/inference`;
-    const response = await fetch(url, {
-      method: "POST",
-      body: formData,
+    return new Promise((resolve, reject) => {
+      s3.upload(params, (err, data) => {
+        if (err) {
+          console.error("Error uploading image:", err);
+          reject(err);
+        } else {
+          console.log(data);
+          resolve(data);
+        }
+      });
     });
-    console.log(response);
-    const data = await response.json();
+  };
 
-    const success = false;
-    const id = 1;
-    if (success) {
-      navigate(`/inference/diagnosis/${id}`);
+  const handleUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      // formData.append("bodyPart", selectedBodyPart); Keep commented
+
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        toast.success("Inference successful");
+        navigate("/inference/diagnosis/2");
+      }, 10000);
+      // const url = endpoints.fastAPI;
+
+      // setLoading(true);
+      // const response = await fetch(url, {
+      //   method: "POST",
+      //   body: formData,
+      // });
+      // setLoading(false);
+
+      // const data = await response.json();
+      // console.log("response FAST", response);
+      // console.log("data FAST", data);
+
+      // if (response.status === 200) {
+      //   setPredictData(data);
+      // const s3Data = await handleS3Upload();
+
+      // try {
+      //   toast.success("Inference successful");
+      //   const drfFormData = new FormData();
+      //   drfFormData.append("prediction", data.prediction);
+      //   drfFormData.append("uploadedImage", s3Data.Location);
+      //   drfFormData.append("model", data.model_name);
+
+      //   const drfUrl = endpoints.recordAfterInference;
+
+      //   setLoading(true);
+      //   const responseDrf = await fetch(drfUrl, {
+      //     method: "POST",
+      //     headers: {
+      //       Authorization: `Bearer ${localStorage.getItem(`accessToken`)}`,
+      //     },
+      //     body: drfFormData,
+      //   });
+      //   setLoading(false);
+
+      //   const dataDrf = await responseDrf.json();
+      //   console.log("response DRF", responseDrf);
+      //   console.log("data DRF", dataDrf);
+      //   const recordId = dataDrf.data;
+      //   navigate(`/inference/diagnosis/${recordId}`);
+      // } catch (error) {
+      //   setLoading(false);
+      //   console.log(error);
+      // }
+      //   }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
     }
   };
 
@@ -54,7 +153,7 @@ const Inference = () => {
     <>
       <div className="flex flex-col min-[1200px]:flex-row h-[100%] w-[100%] items-center mainContainer dark:mainContainerDark">
         {/* left container */}
-        <div className="flex flex-col h-[100%] w-[100%] min-[1200px]:w-[60%] mainContainer dark:mainContainerDark justify-center items-center relative overflow-hidden p-[1rem]">
+        <div className="flex flex-col min-h-[100%] w-[100%] min-[1200px]:w-[60%] mainContainer dark:mainContainerDark justify-center items-center relative overflow-hidden p-[1rem]">
           {!uploaded ? (
             <>
               <div className="headerText dark:headerTextDark text-center">
@@ -87,6 +186,12 @@ const Inference = () => {
                 />
               </div>
               <div className="mt-[1rem] z-10 flex flex-col">
+                {predictData && (
+                  <div className="primaryText dark:primaryTextDark mb-[1rem]">
+                    <span className="underline font-[700]">Prediction:</span>{" "}
+                    {predictData.prediction}
+                  </div>
+                )}
                 <label className="primaryText dark:primaryTextDark">
                   Select Localisation:
                 </label>
@@ -98,14 +203,14 @@ const Inference = () => {
                   }}
                 >
                   <option value="">-- Select --</option>
-                  <option value="Head">Face</option>
-                  <option value="Shoulders">Neck</option>
-                  <option value="Knees">Ears</option>
-                  <option value="Toes">Scalp</option>
-                  <option value="Toes">Arms</option>
-                  <option value="Toes">Legs</option>
-                  <option value="Toes">Groin</option>
-                  <option value="Toes">Underarms</option>
+                  <option value="Face">Face</option>
+                  <option value="Neck">Neck</option>
+                  <option value="Ears">Ears</option>
+                  <option value="Scalp">Scalp</option>
+                  <option value="Arms">Arms</option>
+                  <option value="Legs">Legs</option>
+                  <option value="Groin">Groin</option>
+                  <option value="Underarms">Underarms</option>
                   {/* Add more body parts as needed */}
                 </select>
               </div>
@@ -114,18 +219,26 @@ const Inference = () => {
                   onClick={() => {
                     setUploaded(false);
                   }}
-                  className="primaryButton dark:primaryButtonDark mt-8 px-[4rem] py-[1.5rem] relative z-10"
+                  className="primaryButton dark:primaryButtonDark mt-8 px-[2rem] py-[1.5rem] relative z-10"
                 >
                   Change Photo
                 </button>
 
                 <button
                   onClick={handleUpload}
-                  className="primaryButton dark:primaryButtonDark mt-8 px-[4rem] py-[1.5rem] relative z-10"
+                  className="primaryButton dark:primaryButtonDark mt-8 px-[2rem] py-[1.5rem] relative z-10"
                 >
                   Begin Diagnosis
                 </button>
               </div>
+              {/* <button
+                onClick={() => {
+                  handleS3Upload();
+                }}
+                className="primaryButton dark:primaryButtonDark text-[20px] mt-8 px-[1rem] py-[0.5rem]  relative z-10"
+              >
+                Test s3
+              </button> */}
             </>
           )}
           <div className="gradCircle -bottom-[20rem]"></div>
@@ -134,17 +247,15 @@ const Inference = () => {
         {/* right container */}
         <div className="flex flex-col h-[90%] w-[90%] min-[1200px]:w-[40%] my-[2rem] mx-[0rem] min-[1200px]:mx-[2rem] secondaryContainer dark:secondaryContainerDark border border-black dark:border-white px-[2rem] py-[2rem]">
           <div className="descriptionText dark:descriptionTextDark text-[25px] mb-[2rem] text-center">
-            Dermacare.ai is a powerful tool powered by Artificial Intelligence
-            to accurately diagnose skin abnormalities.
+            Mammocare AI Plus is a powerful tool powered by Artificial Intelligence
+            to accurately diagnose breast cancer.
           </div>
           <div className="descriptionText dark:descriptionTextDark text-[25px] mb-[2rem] text-center">
-            To use dermacare.ai, upload an image, in clear light, focusing on
-            the infected area you are concerned about.
+            To use Mammocare AI Plus, upload a mammogram.
           </div>
           <div className="descriptionText dark:descriptionTextDark text-[25px] mb-[2rem] text-center">
             Begin the diagnosis and wait for the AI to finish processing. Once
-            finished, the AI will provide an estimate of what skin condition you
-            might be affected with.
+            finished, the AI will provide an prediction.
           </div>
           <div className="descriptionText dark:descriptionTextDark text-[25px] mb-[2rem] text-center">
             Please note that this is a primary diagnosis and patients should

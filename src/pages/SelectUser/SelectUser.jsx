@@ -9,7 +9,7 @@ const SelectUser = () => {
       <div className="flex justify-center items-center h-[100%] w-[100%] mainContainer dark:mainContainerDark">
         <div className="bg-white dark:bg-[#080808] h-[80%] w-[90%] flex justify-center items-center z-10">
           <div className="bg-[#D9D9D9] dark:bg-[#252D34] h-[90%] w-[90%] xl:w-[40%] xl:mr-[2rem] flex flex-col justify-around items-center">
-            <div className="headerText rainbowText ">Dermacare AI</div>
+            <div className="headerText rainbowText ">Mammocare AI Plus</div>
             <button
               onClick={() => {
                 navigate(`/register-doctor`);
