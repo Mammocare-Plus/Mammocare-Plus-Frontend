@@ -87,58 +87,58 @@ const Inference = () => {
       formData.append("file", selectedFile);
       // formData.append("bodyPart", selectedBodyPart); Keep commented
 
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-        toast.success("Inference successful");
-        navigate("/inference/diagnosis/2");
-      }, 10000);
-      // const url = endpoints.fastAPI;
-
       // setLoading(true);
-      // const response = await fetch(url, {
-      //   method: "POST",
-      //   body: formData,
-      // });
-      // setLoading(false);
+      // setTimeout(() => {
+      //   setLoading(false);
+      //   toast.success("Inference successful");
+      //   navigate("/inference/diagnosis/2");
+      // }, 10000);
+      const url = endpoints.fastAPI;
 
-      // const data = await response.json();
-      // console.log("response FAST", response);
-      // console.log("data FAST", data);
+      setLoading(true);
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+      setLoading(false);
 
-      // if (response.status === 200) {
-      //   setPredictData(data);
+      const data = await response.json();
+      console.log("response FAST", response);
+      console.log("data FAST", data);
+
+      if (response.status === 200) {
+        setPredictData(data);
       // const s3Data = await handleS3Upload();
 
-      // try {
-      //   toast.success("Inference successful");
-      //   const drfFormData = new FormData();
-      //   drfFormData.append("prediction", data.prediction);
-      //   drfFormData.append("uploadedImage", s3Data.Location);
-      //   drfFormData.append("model", data.model_name);
+      try {
+        toast.success("Inference successful");
+        const drfFormData = new FormData();
+        drfFormData.append("prediction", data.prediction);
+        drfFormData.append("uploadedImage", null);
+        drfFormData.append("model", data.model_name);
 
-      //   const drfUrl = endpoints.recordAfterInference;
+        const drfUrl = endpoints.recordAfterInference;
 
-      //   setLoading(true);
-      //   const responseDrf = await fetch(drfUrl, {
-      //     method: "POST",
-      //     headers: {
-      //       Authorization: `Bearer ${localStorage.getItem(`accessToken`)}`,
-      //     },
-      //     body: drfFormData,
-      //   });
-      //   setLoading(false);
+        setLoading(true);
+        const responseDrf = await fetch(drfUrl, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(`accessToken`)}`,
+          },
+          body: drfFormData,
+        });
+        setLoading(false);
 
-      //   const dataDrf = await responseDrf.json();
-      //   console.log("response DRF", responseDrf);
-      //   console.log("data DRF", dataDrf);
-      //   const recordId = dataDrf.data;
-      //   navigate(`/inference/diagnosis/${recordId}`);
-      // } catch (error) {
-      //   setLoading(false);
-      //   console.log(error);
-      // }
-      //   }
+        const dataDrf = await responseDrf.json();
+        console.log("response DRF", responseDrf);
+        console.log("data DRF", dataDrf);
+        const recordId = dataDrf.data;
+        navigate(`/inference/diagnosis/${recordId}`);
+      } catch (error) {
+        setLoading(false);
+        console.log(error);
+      }
+      }
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -184,35 +184,6 @@ const Inference = () => {
                   src={URL.createObjectURL(selectedFile)}
                   className="h-full w-auto"
                 />
-              </div>
-              <div className="mt-[1rem] z-10 flex flex-col">
-                {predictData && (
-                  <div className="primaryText dark:primaryTextDark mb-[1rem]">
-                    <span className="underline font-[700]">Prediction:</span>{" "}
-                    {predictData.prediction}
-                  </div>
-                )}
-                <label className="primaryText dark:primaryTextDark">
-                  Select Localisation:
-                </label>
-                <select
-                  id="bodyPartSelect"
-                  value={selectedBodyPart}
-                  onChange={(e) => {
-                    setSelectedBodyPart(e.target.value);
-                  }}
-                >
-                  <option value="">-- Select --</option>
-                  <option value="Face">Face</option>
-                  <option value="Neck">Neck</option>
-                  <option value="Ears">Ears</option>
-                  <option value="Scalp">Scalp</option>
-                  <option value="Arms">Arms</option>
-                  <option value="Legs">Legs</option>
-                  <option value="Groin">Groin</option>
-                  <option value="Underarms">Underarms</option>
-                  {/* Add more body parts as needed */}
-                </select>
               </div>
               <div className="flex flex-col min-[850px]:flex-row gap-[1rem]">
                 <button

@@ -169,34 +169,6 @@ const Inference = () => {
                   className="h-full w-auto"
                 />
               </div>
-              <div className="mt-[1rem] z-10 flex flex-col">
-                {/* {predictData && (
-                  <div className="primaryText dark:primaryTextDark mb-[1rem]">
-                    Prediction: {predictData.prediction}
-                  </div>
-                )} */}
-                <label className="primaryText dark:primaryTextDark">
-                  Select Localisation:
-                </label>
-                <select
-                  id="bodyPartSelect"
-                  value={selectedBodyPart}
-                  onChange={(e) => {
-                    setSelectedBodyPart(e.target.value);
-                  }}
-                >
-                  <option value="">-- Select --</option>
-                  <option value="Head">Face</option>
-                  <option value="Shoulders">Neck</option>
-                  <option value="Knees">Ears</option>
-                  <option value="Toes">Scalp</option>
-                  <option value="Toes">Arms</option>
-                  <option value="Toes">Legs</option>
-                  <option value="Toes">Groin</option>
-                  <option value="Toes">Underarms</option>
-                  {/* Add more body parts as needed */}
-                </select>
-              </div>
               <div className="flex flex-col min-[850px]:flex-row gap-[1rem]">
                 <button
                   onClick={() => {
