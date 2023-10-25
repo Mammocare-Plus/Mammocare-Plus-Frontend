@@ -27,8 +27,8 @@ if (import.meta.env.DEV) {
 }
 
 AWS.config.update({
-  accessKeyId: accessKey,
-  secretAccessKey: secretKey,
+  accessKeyId: "AKIA3JYGLGVUGOO6JKWV",
+  secretAccessKey: "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",
   region: REGION,
 });
 
@@ -108,13 +108,13 @@ const Inference = () => {
 
       if (response.status === 200) {
         setPredictData(data);
-      // const s3Data = await handleS3Upload();
+      const s3Data = await handleS3Upload();
 
       try {
         toast.success("Inference successful");
         const drfFormData = new FormData();
         drfFormData.append("prediction", data.prediction);
-        drfFormData.append("uploadedImage", null);
+        drfFormData.append("uploadedImage", s3Data.Location);
         drfFormData.append("model", data.model_name);
 
         const drfUrl = endpoints.recordAfterInference;

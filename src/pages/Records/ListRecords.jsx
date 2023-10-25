@@ -56,7 +56,8 @@ const ListRecords = () => {
 
       const recordPredMap = predictions.map((prediction, index) => {
         const currentRecord = data[index]['createdAt'];
-        return { record: currentRecord, disease: prediction };
+        const currentImage = data[index]['uploadedImage']
+        return { record: currentRecord, disease: prediction , image: currentImage };
       });
       console.log("recordPredMap", recordPredMap);
       setReportMap(recordPredMap);
@@ -112,11 +113,12 @@ const ListRecords = () => {
         </div>
         {
           reportMap.map((report, index) => {
+            console.log(report.image);
             return (
               <div className="mt-[2rem]">
                 <div className="flex flex-col min-[1110px]:flex-row justify-center px-[2rem] py-[2rem] border-b-2 border-black dark:border-white">
                   <div className="h-[15rem] flex justify-center mr-[2rem]">
-                    <img src={sampleImg} alt="image" className="h-[100%]" />
+                    <img src={report?.image} alt="image" className="h-[100%]" />
                   </div>
 
                   <div className="flex flex-col justify-center items-center py-[1rem]  ">

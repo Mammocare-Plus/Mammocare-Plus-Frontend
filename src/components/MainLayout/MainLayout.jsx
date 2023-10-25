@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { applyTheme } from "../../utils/applyTheme";
 import { NavLink } from "react-router-dom";
 import mammoLogo from "../../assets/logo.svg";
@@ -15,6 +15,7 @@ const MainLayout = () => {
   const theme = localStorage.getItem("theme");
   const [isDarkMode, setIsDarkMode] = useState(theme === "dark");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   const checkUser = () => {
     const userId = localStorage.getItem("userId");
@@ -118,7 +119,12 @@ const MainLayout = () => {
                       onChange={darkModeToggle}
                     />
                   </div>
-                  <div className="logoutContainer dark:logoutContainerDark">
+                  <div className="logoutContainer dark:logoutContainerDark" onClick={
+                    () => {
+                      localStorage.clear();
+                      navigate("/login");
+                    }
+                  }>
                     <LogoutIcon />
                     <div>Logout</div>
                   </div>

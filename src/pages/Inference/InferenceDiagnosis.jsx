@@ -9,7 +9,7 @@ import diseaseData from "../../utils/diseaseData";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 // import sampleImg from "../../assets/sampleDisease.jpg";
-import sampleImg from "../../assets/sampleDisease2.jpg";
+import sampleImg from "../../assets/dr dhanjay.jpg";
 import { endpoints } from "../../utils/config";
 
 const InferenceDiagnosis = () => {
@@ -17,17 +17,26 @@ const InferenceDiagnosis = () => {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState();
+  const [result, setResult] = useState(null);
 
-  const [selectedDisease, setSelectedDisease] = useState("Eczema");
+  const [selectedDisease, setSelectedDisease] = useState("IDC (+)");
   const [selectedLanguage, setSelectedLanguage] = useState("en-US");
 
   const getData = async (query) => {
-    let url = endpoints.recordAfterInference;
+
+    let url = endpoints.records + id;
     if (query) {
       url = query;
     }
-    const response = await fetch(url);
+
+    setLoading(true);
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem(`accessToken`)}`,
+      },
+    });
+    setLoading(false);
 
     console.log(response);
     const data = await response.json();
@@ -36,7 +45,7 @@ const InferenceDiagnosis = () => {
   };
 
   useEffect(() => {
-    // getData();
+    getData();
   }, []);
 
   const [speaking, setSpeaking] = useState(false);
@@ -128,7 +137,7 @@ const InferenceDiagnosis = () => {
           </div>
 
           <div className="min-w-[200px] h-[200px] mt-[1rem] mb-[1rem] flex justify-center">
-            <img src={sampleImg} className="h-full w-auto" />
+            <img src={result?.uploadedImage} className="h-full w-auto" />
           </div>
 
           <div className="w-[100%] flex items-center justify-between px-[1rem]">
@@ -178,15 +187,15 @@ const InferenceDiagnosis = () => {
             Nearest Doctor
           </div>
 
-          <Avatar rounded size="xl" className="mb-[1rem]" />
+          <Avatar rounded size="xl" className="mb-[1rem]" img={sampleImg}/>
           {/* <div className="bg-slate-600 w-[200px] h-[200px] rounded-full mb-[1rem]"></div> */}
 
           <div className="descriptionText dark:descriptionTextDark text-[25px] text-center mb-[1rem]">
-            Dr. Vijay Desai
+            Dr. Dhanjay Deshmukhi
           </div>
 
           <div className="descriptionText dark:descriptionTextDark text-center text-[20px] mb-[1rem]">
-            MBBS, DM Dermatology, Diploma in Dermatology
+            MD, Gynecologist
           </div>
 
           {/* <div className="descriptionText dark:descriptionTextDark text-[25px] text-center mb-[1rem]">
@@ -194,11 +203,11 @@ const InferenceDiagnosis = () => {
           </div> */}
 
           <div className="descriptionText dark:descriptionTextDark text-[25px] text-center mb-[1rem]">
-            40 Sasoon Rd Sangamvadi Pune - 411001, Maharashtra
+            Karvenagar, Pune
           </div>
 
           <div className="descriptionText dark:descriptionTextDark text-[25px] text-center mb-[1rem]">
-            Consultation fee: 500
+            Consultation fee: Rs. 2500
           </div>
 
           <button
@@ -242,15 +251,6 @@ const DisplayInfo = (props) => {
         {/* Dry skin, Itchy skin, Skin rash, Bumps on your skin, Thick, leathery patches
         of skin, Flaky, scaly or crusty skin, Swelling. */}
         {diseaseInfo?.symptoms}
-      </div>
-      <div className="descriptionText dark:descriptionTextDark text-[25px] mb-[2rem] text-center">
-        <span className="font-[800] text-[28px] underline">
-          {generalInfo?.description}:
-        </span>{" "}
-        {/* Using gentle or sensitive skin moisturizers throughout the day when you
-        have dry skin. Apply moisturizer when your skin is damp after a bath or
-        shower. */}
-        {diseaseInfo?.prescription}
       </div>
     </>
   );
