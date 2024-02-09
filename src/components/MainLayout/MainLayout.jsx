@@ -9,6 +9,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { ToggleSwitch } from "flowbite-react";
+import TextsmsIcon from "@mui/icons-material/Textsms";
 
 const MainLayout = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -68,9 +69,7 @@ const MainLayout = () => {
                       alt="logo"
                       className="bg-[#2196F3] w-[40px] h-[40px] p-[4px]"
                     />
-                    <div className="logoText dark:logoTextDark">
-                      Mammocare+
-                    </div>
+                    <div className="logoText dark:logoTextDark">Mammocare+</div>
                   </div>
 
                   {/* Nav Items */}
@@ -107,6 +106,20 @@ const MainLayout = () => {
                     <DescriptionIcon />
                     <div>Records</div>
                   </NavLink>
+                  <NavLink
+                    to={`/chatbot`}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "navItemActive ml-[0.5rem]"
+                        : "navItem dark:navItemDark ml-[0.5rem]"
+                    }
+                  >
+                    <TextsmsIcon
+                      className="text-[#5FB3F6] cursor-pointer"
+                      style={{ fontSize: "2rem" }}
+                    />
+                    <div>Chat</div>
+                  </NavLink>
                 </div>
 
                 {/* Nav Footer */}
@@ -119,12 +132,13 @@ const MainLayout = () => {
                       onChange={darkModeToggle}
                     />
                   </div>
-                  <div className="logoutContainer dark:logoutContainerDark" onClick={
-                    () => {
+                  <div
+                    className="logoutContainer dark:logoutContainerDark"
+                    onClick={() => {
                       localStorage.clear();
                       navigate("/login");
-                    }
-                  }>
+                    }}
+                  >
                     <LogoutIcon />
                     <div>Logout</div>
                   </div>
@@ -171,6 +185,19 @@ const MainLayout = () => {
                     }
                   >
                     <DescriptionIcon />
+                  </NavLink>
+                  <NavLink
+                    to={`/chatbot`}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "navItemActive w-fit"
+                        : "navItem dark:navItemDark"
+                    }
+                  >
+                    <TextsmsIcon
+                      className="text-[#5FB3F6] cursor-pointer"
+                      style={{ fontSize: "2rem" }}
+                    />
                   </NavLink>
                 </div>
 

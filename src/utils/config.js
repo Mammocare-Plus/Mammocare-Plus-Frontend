@@ -12,4 +12,7 @@ export const endpoints = {
   patients: `${baseURL}/api/patient/`,
   diseases: `${baseURL}/api/disease/`,
   doctor: `${baseURL}/api/doctor/`,
+
+  englishChatBot: `http://localhost:5000`,
+  hindiChatBot: `http://localhost:5001`,
 };

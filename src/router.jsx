@@ -23,6 +23,8 @@ import EditPatient from "./pages/Profile/EditProfile/EditPatient";
 import Inbox from "./pages/Inbox/Inbox";
 import Chat from "./pages/Inbox/Chat/Chat";
 
+import ChatBot from "./pages/ChatBot/ChatBot";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -94,6 +96,12 @@ const router = createBrowserRouter([
       {
         path: "inbox/chat/:id",
         element: <Chat />,
+      },
+
+      // Chatbot
+      {
+        path: "chatbot",
+        element: <ChatBot />,
       },
     ],
   },
