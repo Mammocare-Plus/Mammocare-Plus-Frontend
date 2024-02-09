@@ -23,7 +23,6 @@ const InferenceDiagnosis = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en-US");
 
   const getData = async (query) => {
-
     let url = endpoints.records + id;
     if (query) {
       url = query;
@@ -42,6 +41,7 @@ const InferenceDiagnosis = () => {
     const data = await response.json();
 
     setResult(data);
+    setSelectedDisease(data?.prediction_name);
   };
 
   useEffect(() => {
@@ -187,7 +187,7 @@ const InferenceDiagnosis = () => {
             Nearest Doctor
           </div>
 
-          <Avatar rounded size="xl" className="mb-[1rem]" img={sampleImg}/>
+          <Avatar rounded size="xl" className="mb-[1rem]" img={sampleImg} />
           {/* <div className="bg-slate-600 w-[200px] h-[200px] rounded-full mb-[1rem]"></div> */}
 
           <div className="descriptionText dark:descriptionTextDark text-[25px] text-center mb-[1rem]">
