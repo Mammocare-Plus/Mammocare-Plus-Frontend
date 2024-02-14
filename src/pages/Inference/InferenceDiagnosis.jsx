@@ -45,7 +45,7 @@ const InferenceDiagnosis = () => {
   };
 
   useEffect(() => {
-    getData();
+    // getData();
   }, []);
 
   const [speaking, setSpeaking] = useState(false);
@@ -131,7 +131,7 @@ const InferenceDiagnosis = () => {
     <>
       <div className="flex flex-col min-[1200px]:flex-row h-[100%] w-[100%] items-center mainContainer dark:mainContainerDark px-[0.5rem]">
         {/* left container */}
-        <div className="flex flex-col items-center h-[100%] w-[100%] min-[1200px]:w-[60%] mainContainer dark:mainContainerDark relative overflow-hidden">
+        <div className="flex flex-col items-center h-[100%] w-[100%] min-[1200px]:w-[100%] mainContainer dark:mainContainerDark relative overflow-hidden">
           <div className="headerText dark:headerTextDark mb-[1rem] mt-[4rem]">
             Your Diagnosis
           </div>
@@ -182,13 +182,13 @@ const InferenceDiagnosis = () => {
         </div>
 
         {/* right container */}
-        <div className="flex flex-col h-[90%] w-[90%] min-[1200px]:w-[40%] my-[2rem] mx-[0rem] min-[1200px]:mx-[2rem] secondaryContainer dark:secondaryContainerDark border border-black dark:border-white px-[2rem] py-[2rem] items-center">
+        {/* <div className="flex flex-col h-[90%] w-[90%] min-[1200px]:w-[40%] my-[2rem] mx-[0rem] min-[1200px]:mx-[2rem] secondaryContainer dark:secondaryContainerDark border border-black dark:border-white px-[2rem] py-[2rem] items-center">
           <div className="headerText dark:headerTextDark mb-[1rem] text-center">
             Nearest Doctor
           </div>
 
           <Avatar rounded size="xl" className="mb-[1rem]" img={sampleImg} />
-          {/* <div className="bg-slate-600 w-[200px] h-[200px] rounded-full mb-[1rem]"></div> */}
+
 
           <div className="descriptionText dark:descriptionTextDark text-[25px] text-center mb-[1rem]">
             Dr. Dhanjay Deshmukhi
@@ -197,10 +197,6 @@ const InferenceDiagnosis = () => {
           <div className="descriptionText dark:descriptionTextDark text-center text-[20px] mb-[1rem]">
             MD, Gynecologist
           </div>
-
-          {/* <div className="descriptionText dark:descriptionTextDark text-[25px] text-center mb-[1rem]">
-            Stars
-          </div> */}
 
           <div className="descriptionText dark:descriptionTextDark text-[25px] text-center mb-[1rem]">
             Karvenagar, Pune
@@ -218,7 +214,7 @@ const InferenceDiagnosis = () => {
           >
             Connect
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );
@@ -251,6 +247,14 @@ const DisplayInfo = (props) => {
         {/* Dry skin, Itchy skin, Skin rash, Bumps on your skin, Thick, leathery patches
         of skin, Flaky, scaly or crusty skin, Swelling. */}
         {diseaseInfo?.symptoms}
+      </div>
+      <div className="descriptionText dark:descriptionTextDark text-[25px] mb-[2rem] text-center">
+        <span className="font-[800] text-[28px] underline">
+          {generalInfo?.prescription}:
+        </span>
+        {/* Dry skin, Itchy skin, Skin rash, Bumps on your skin, Thick, leathery patches
+        of skin, Flaky, scaly or crusty skin, Swelling. */}
+        {diseaseInfo?.prescription}
       </div>
     </>
   );
