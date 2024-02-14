@@ -12,7 +12,7 @@ import { ToggleSwitch } from "flowbite-react";
 import TextsmsIcon from "@mui/icons-material/Textsms";
 
 const MainLayout = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const theme = localStorage.getItem("theme");
   const [isDarkMode, setIsDarkMode] = useState(theme === "dark");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
@@ -52,13 +52,13 @@ const MainLayout = () => {
     <>
       <div className="min-h-[100vh] flex ">
         {/* Left Nav */}
-        <div className=" relative w-[80px]">
+        <div className=" relative w-[300px]">
           <div
             className={`${
               isExpanded ? "w-[300px] px-[1rem]" : "w-[80px] items-center"
             } fixed navContainer dark:navContainerDark min-h-[100%] flex flex-col justify-between py-[1rem] z-40`}
-            onMouseEnter={toggleMenu}
-            onMouseLeave={toggleMenu}
+            // onMouseEnter={toggleMenu}
+            // onMouseLeave={toggleMenu}
           >
             {isExpanded ? (
               <>
